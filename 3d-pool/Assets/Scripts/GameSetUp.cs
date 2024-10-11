@@ -58,7 +58,7 @@ public class GameSetUp : MonoBehaviour
                 }
                 else if (0 < redBallsRemaining && 0 < blueBallsRemaining)
                 {
-                    rand = Random.Range(0, 1);
+                    rand = Random.Range(0, 2);
                     if (rand == 0)
                     {
                         placeRedBall(currPosition);
