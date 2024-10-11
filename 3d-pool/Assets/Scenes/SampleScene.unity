@@ -1836,6 +1836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5f099271ee0e7468df96e39b1f4f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hit: 0
   movementThreshhold: 0.002
   shotTimer: 3
   player1BallsText: {fileID: 462601567}

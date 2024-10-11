@@ -27,6 +27,7 @@ public class GameSetUp : MonoBehaviour
     void placeCueBall() {
         GameObject ball = Instantiate(ballPrefab, cueBallPosition.position, Quaternion.identity);
         ball.GetComponent<Ball>().makeCueBall();
+        ball.AddComponent<cueBall>();
     }
     void placeEightBall(Vector3 position) {
         GameObject ball = Instantiate(ballPrefab, position, Quaternion.identity);

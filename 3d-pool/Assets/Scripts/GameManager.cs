@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     bool isGameOver = false;
     bool willSwapPlayers = false;
     bool ballPocketed = false;
+    public bool hit = false;
     private float currentTimer;
     [SerializeField] float movementThreshhold;
     [SerializeField] float shotTimer = 3f;
@@ -77,6 +79,20 @@ public class GameManager : MonoBehaviour
                     }
                     currentTimer = shotTimer;
                     ballPocketed = false;
+                    if (!hit) { 
+                        foreach(GameObject ballObj in GameObject.FindGameObjectsWithTag("Ball")){
+                            Ball ball = ballObj.GetComponent<Ball>();
+                            if (ball != null && ball.isItCueBall())
+                            {
+                                ballObj.transform.position = headPosition.position;
+                                ballObj.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                                ballObj.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                                currentCamera.gameObject.GetComponent<CameraController>().ResetCamera();
+                                break;
+                            }
+                        }
+                    }
+                    hit = false;
                 }
             }
         }
@@ -127,6 +143,7 @@ public class GameManager : MonoBehaviour
     }
     bool CheckBall(Ball ball)
     {
+        hit = true;
         if (ball.isItCueBall())
         {
             if (Scratch())
@@ -234,6 +251,7 @@ public class GameManager : MonoBehaviour
             SwitchCameras();
         }
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Ball") {
